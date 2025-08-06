@@ -6,8 +6,23 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideKeycloak } from 'keycloak-angular';
+import {
+    AutoRefreshTokenService,
+    createInterceptorCondition,
+    INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+    IncludeBearerTokenCondition,
+    includeBearerTokenInterceptor,
+    provideKeycloak,
+    UserActivityService,
+    withAutoRefreshToken,
+} from 'keycloak-angular';
 import { environment } from '../environments/environment.development';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+
+const localhostCondition =
+    createInterceptorCondition<IncludeBearerTokenCondition>({
+        urlPattern: environment.api_url_pattern,
+    });
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -21,10 +36,26 @@ export const appConfig: ApplicationConfig = {
                 onLoad: 'check-sso',
                 silentCheckSsoRedirectUri:
                     window.location.origin + '/silent-check-sso.html',
+                redirectUri: environment.path + '/dashboard',
             },
+            features: [
+                withAutoRefreshToken({
+                    onInactivityTimeout: 'logout',
+                    sessionTimeout: 1000,
+                }),
+            ],
+            providers: [
+                AutoRefreshTokenService,
+                UserActivityService,
+                {
+                    provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+                    useValue: [localhostCondition],
+                },
+            ],
         }),
         provideBrowserGlobalErrorListeners(),
         provideZonelessChangeDetection(),
         provideRouter(routes),
+        provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
     ],
 };
