@@ -3,6 +3,8 @@ import { Transaction } from '../models/transaction.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { Pageable, PageableResponse } from '../models/pageable.model';
+import { format } from 'date-fns';
 
 @Injectable({
     providedIn: 'root',
@@ -17,9 +19,15 @@ export class TransactionService {
         endDate: Date,
         page: number,
         size: number
-    ): Observable<Transaction[]> {
-        return this.http.get<Array<Transaction>>(
-            `${this.API_URL}/transaction?startDate=2025-08-04&endDate=2025-08-04&page=${page}&size=${size}`
+    ): Observable<PageableResponse<Transaction>> {
+        return this.http.get<PageableResponse<Transaction>>(
+            `${this.API_URL}/transaction?startDate=${format(
+                startDate,
+                'yyyy-MM-dd'
+            )}&endDate=${format(
+                endDate,
+                'yyyy-MM-dd'
+            )}&page=${page}&size=${size}`
         );
     }
 }

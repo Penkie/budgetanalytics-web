@@ -19,10 +19,9 @@ import {
 import { environment } from '../environments/environment.development';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
-const localhostCondition =
-    createInterceptorCondition<IncludeBearerTokenCondition>({
-        urlPattern: environment.api_url_pattern,
-    });
+const pathCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
+    urlPattern: environment.api_url_pattern,
+});
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -39,17 +38,17 @@ export const appConfig: ApplicationConfig = {
                 redirectUri: environment.path + '/dashboard',
             },
             features: [
-                withAutoRefreshToken({
-                    onInactivityTimeout: 'logout',
-                    sessionTimeout: 1000,
-                }),
+                // withAutoRefreshToken({
+                //     onInactivityTimeout: 'logout',
+                //     sessionTimeout: 1000,
+                // }),
             ],
             providers: [
                 AutoRefreshTokenService,
                 UserActivityService,
                 {
                     provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
-                    useValue: [localhostCondition],
+                    useValue: [pathCondition],
                 },
             ],
         }),
