@@ -8,7 +8,6 @@
             <a class="nav-btn" 
                 routerLink="/cockpit"
                 routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}"
                 >
                 <img class="icon" src="icons/home.svg" alt="home">
                 <span>Dashboard</span>
@@ -22,7 +21,62 @@
             </a>
         </div>
         <div class="section">
-            <span class="section-title"></span>
+            <span class="section-title">Analytics</span>
+            <a class="nav-btn" 
+                routerLink="/cockpit/mouvements"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/dollar.svg" alt="dollar">
+                <span>Net worth</span>
+            </a>
+            <a class="nav-btn" 
+                routerLink="/cockpit/spending"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/numbered-list.svg" alt="numbered-list">
+                <span>Spending</span>
+            </a>
+            <a class="nav-btn"
+                routerLink="/cockpit/budget"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/pig.svg" alt="pig">
+                <span>Budget</span>
+            </a>
+        </div>
+        <div class="section">
+            <span class="section-title">Configuration</span>
+            <a class="nav-btn"
+                routerLink="/cockpit/accounts"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/bank-notes.svg" alt="bank-notes">
+                <span>Accounts</span>
+            </a>
+            <a class="nav-btn"
+                routerLink="/cockpit/categories"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/block-quote.svg" alt="block-quote">
+                <span>Categories</span>
+            </a>
+        </div>
+        <div class="section">
+            <div class="section-title">Settings</div>
+            <a class="nav-btn"
+                routerLink="/cockpit/settings"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/cog.svg" alt="cog">
+                <span>Settings</span>
+            </a>
+            <a class="nav-btn"
+                routerLink="/cockpit/theme"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/paint-brush.svg" alt="paint-brush">
+                <span>Theme</span>
+            </a>
         </div>
     </div>
     <div class="account">
