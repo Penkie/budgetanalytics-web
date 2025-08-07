@@ -1,8 +1,34 @@
 <div class="sidebar" 
          [class.open]="isMobileSidebarOpen()">
-      <div class="head">
+    <div class="head">
         <span class="title">Budget Analytics</span>
-      </div>
+    </div>
+    <div class="nav">
+        <div class="section">
+            <a class="nav-btn" 
+                routerLink="/cockpit"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}"
+                >
+                <img class="icon" src="icons/home.svg" alt="home">
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-btn" 
+                routerLink="/cockpit/mouvements"
+                routerLinkActive="active"
+                >
+                <img class="icon" src="icons/arrow-left-right.svg" alt="arrow-left-right">
+                <span>Mouvements</span>
+            </a>
+        </div>
+        <div class="section">
+            <span class="section-title"></span>
+        </div>
+    </div>
+    <div class="account">
+        <!-- account -->
+        <!-- logout -->
+    </div>
 </div>
 <div class="content">
     <div class="mobile-menu" 

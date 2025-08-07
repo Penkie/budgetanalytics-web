@@ -6,6 +6,7 @@
         font-size: 24px;
         font-weight: bold;
         padding: 20px 0;
+        color: var(--text-color);
     }
 
     .numbers {
@@ -27,7 +28,7 @@
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
-                color: grey;
+                color: var(--grey-text);
 
                 img {
                     width: 15px;
@@ -39,6 +40,7 @@
             .value {
                 font-size: 24px;
                 font-weight: bolder;
+                color: var(--text-color);
             }
         }
 

@@ -1,8 +1,13 @@
 // variables
 
 :root {
+  --text-color: #5a2d2d;
+  --background-color: #f5e8e8;
+  --hover-color: #f6f3f3;
+  --hover-on-main-color: #f0d8d4;
+  --grey-text: rgb(98, 98, 98);
   --filter-grey: brightness(0) saturate(100%) invert(50%);
-
+  --filter-main-color: brightness(0) saturate(100%) invert(25%) sepia(25%) saturate(1500%) hue-rotate(0deg) brightness(90%) contrast(100%);
 }
 
 .button {
