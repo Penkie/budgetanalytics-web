@@ -1,3 +1,10 @@
+// variables
+
+:root {
+  --filter-grey: brightness(0) saturate(100%) invert(50%);
+
+}
+
 .button {
     background-color: #ffffff;
     border: 1px solid rgb(209, 213, 219);
