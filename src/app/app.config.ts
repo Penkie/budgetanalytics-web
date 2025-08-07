@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
                 onLoad: 'check-sso',
                 silentCheckSsoRedirectUri:
                     window.location.origin + '/silent-check-sso.html',
-                redirectUri: environment.path + '/dashboard',
+                redirectUri: environment.path + '/cockpit',
             },
             features: [
                 // withAutoRefreshToken({

@@ -1,0 +1,19 @@
+<div class="sidebar" 
+         [class.open]="isMobileSidebarOpen()">
+      <div class="head">
+        <span class="title">Budget Analytics</span>
+      </div>
+</div>
+<div class="content">
+    <div class="mobile-menu" 
+        (click)="toggleMobileSidebar()">
+        <img src="icons/chevron-left.svg" 
+                alt="Toggle menu"
+                [class.rotated]="isMobileSidebarOpen()">
+    </div>
+    <router-outlet></router-outlet>
+</div>
+    
+@if (isMobileSidebarOpen()) {
+    <div class="overlay" (click)="closeMobileSidebar()"></div>
+}
