@@ -1,0 +1,24 @@
+:host {
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 20px 0;
+        display: flex;
+        gap: 5px;
+        color: var(--text-color);
+        align-items: center;
+
+        img {
+            width: 18px;
+            height: 18px;
+            filter: var(--filter-grey)
+        }
+
+        .base-route {
+            color: var(--grey-text) !important;
+            font-size: 18px;
+            font-weight: normal;
+        }
+    }
+}

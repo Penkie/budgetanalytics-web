@@ -3,6 +3,7 @@ import { About } from './about/about';
 import { Layout } from './layout/layout';
 import { Dashboard } from './layout/pages/dashboard/dashboard';
 import { canActivateAuthRole } from './common/guard/auth-guard';
+import { Accounts } from './layout/pages/accounts/accounts';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,11 @@ export const routes: Routes = [
             {
                 path: '',
                 component: Dashboard,
+                canActivate: [canActivateAuthRole],
+            },
+            {
+                path: 'accounts',
+                component: Accounts,
                 canActivate: [canActivateAuthRole],
             },
         ],

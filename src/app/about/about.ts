@@ -15,7 +15,7 @@ export class About {
      */
     public login(): void {
         this.keycloak.login({
-            redirectUri: window.location.origin + '/dashboard',
+            redirectUri: window.location.origin + '/cockpit',
         });
     }
 }

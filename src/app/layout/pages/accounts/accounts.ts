@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { PageHeader } from '../../../common/components/page-header/page-header';
 
 @Component({
-    selector: 'app-dashboard',
+    selector: 'app-accounts',
     imports: [PageHeader],
-    templateUrl: './dashboard.html',
-    styleUrl: './dashboard.scss',
+    templateUrl: './accounts.html',
+    styleUrl: './accounts.scss',
 })
-export class Dashboard {}
+export class Accounts {}

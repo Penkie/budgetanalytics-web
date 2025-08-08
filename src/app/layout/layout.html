@@ -8,6 +8,7 @@
             <a class="nav-btn" 
                 routerLink="/cockpit"
                 routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
                 >
                 <img class="icon" src="icons/home.svg" alt="home">
                 <span>Dashboard</span>
@@ -23,7 +24,7 @@
         <div class="section">
             <span class="section-title">Analytics</span>
             <a class="nav-btn" 
-                routerLink="/cockpit/mouvements"
+                routerLink="/cockpit/net-worth"
                 routerLinkActive="active"
                 >
                 <img class="icon" src="icons/dollar.svg" alt="dollar">
@@ -33,7 +34,7 @@
                 routerLink="/cockpit/spending"
                 routerLinkActive="active"
                 >
-                <img class="icon" src="icons/numbered-list.svg" alt="numbered-list">
+                <img class="icon" src="icons/bank-notes.svg" alt="bank-notes">
                 <span>Spending</span>
             </a>
             <a class="nav-btn"
@@ -50,7 +51,7 @@
                 routerLink="/cockpit/accounts"
                 routerLinkActive="active"
                 >
-                <img class="icon" src="icons/bank-notes.svg" alt="bank-notes">
+                <img class="icon" src="icons/building.svg" alt="building">
                 <span>Accounts</span>
             </a>
             <a class="nav-btn"
