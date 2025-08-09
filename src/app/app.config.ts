@@ -18,6 +18,7 @@ import {
 } from 'keycloak-angular';
 import { environment } from '../environments/environment.development';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const pathCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
     urlPattern: environment.api_url_pattern,
@@ -56,5 +57,6 @@ export const appConfig: ApplicationConfig = {
         provideZonelessChangeDetection(),
         provideRouter(routes),
         provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
+        provideAnimations(),
     ],
 };

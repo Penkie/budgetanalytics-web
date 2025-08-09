@@ -1,4 +1,59 @@
 :host {
     margin: 0 20px;
     display: block;
+
+    .accounts {
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            align-self: flex-start;
+            color: var(--grey-text);
+
+            img {
+                filter: var(--filter-grey);
+            }
+        }
+
+        table {
+            border: 2px solid var(--background-color);
+            width: 100%;
+            // padding: 10px;
+            border-spacing: 0;
+            border-radius: 8px;
+
+            tr th {
+                text-align: start;
+                padding: 10px;
+                color: var(--text-color);
+                background-color: var(--background-color);
+            }
+
+            td img {
+                width: 25px;
+                height: 25px;
+                filter: var(--filter-grey)
+            }
+
+            td:has(img) {
+                display: flex;
+                justify-content: center;
+            }
+
+            tr td {
+                padding: 10px;
+                margin: 0 !important;
+            }
+
+            tr:has(td):hover {
+                background-color: var(--hover-color);
+                cursor: pointer;
+            }
+        }
+    }
 }
