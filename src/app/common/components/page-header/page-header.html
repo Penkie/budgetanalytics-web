@@ -1,11 +1,39 @@
 <div class="title">
-    <div class="base-route">
-        {{ pageBaseName() }}
-    </div>
-    @if (pageBaseName()) {
-        <img src="icons/chevron-right.svg" alt="chevron-right">
+    @if (!pagePath()) {
+        <div class="base-route">
+            {{ pageBaseName() }}
+        </div>
+        @if (pageBaseName()) {
+            <img src="icons/chevron-right.svg" alt="chevron-right">
+        }
+        <div class="page-name">
+            {{ pageName() }}
+        </div>
     }
-    <div class="page-name">
-        {{ pageName() }}
-    </div>
+    
+    @if (pagePath()) {
+        @for (path of pagePath(); track $index) {
+            @if (path.main) {
+                <div class="page-name">
+                    {{ path.name }}
+                </div>
+            }
+            @else if (path.route) {
+                <div [routerLink]="path.routerLink" class="base-route router-link">
+                    {{ path.name }}
+                </div>
+                @if (pagePathLength() > $index) {
+                    <img src="icons/chevron-right.svg" alt="chevron-right">
+                }
+            }
+            @else {
+                <div class="base-route">
+                    {{ path.name }}
+                </div>
+                @if (pagePathLength() > $index) {
+                    <img src="icons/chevron-right.svg" alt="chevron-right">
+                }
+            }
+        } 
+    }
 </div>

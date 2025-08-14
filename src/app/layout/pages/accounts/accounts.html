@@ -1,6 +1,6 @@
 <page-header pageBaseName="Configuration" pageName="Accounts"></page-header>
 <div class="accounts">
-    <button class="button" (click)="openPopup()">
+    <button class="button" routerLink="/cockpit/accounts/edition">
         <img width="15" height="15" src="icons/plus.svg" alt="plus">
         Add account
     </button>
@@ -35,33 +35,3 @@
         </tr>
     </table>
 </div>
-<app-popup
-    [isOpen]="showPopup()"
-    [title]="popupText"
-    [closeOnOverlayClick]="true"
-    (closeEvent)="onClosePopup()"
-    [showFooter]="true"
->
-    <form>
-        <div>
-            <label for="Name">Name :</label>
-            <input type="text" name="name" id="name">
-        </div>
-        <div>
-            <label for="balance">Balance :</label>
-            <input type="number" name="balance" id="balance">
-        </div>
-        <div>
-            <label for="type">Type :</label>
-            <select name="type" id="type">
-                <option value="Current">Current</option>
-                <option value="Saving">Saving</option>
-                <option value="Credit card">Credit card</option>
-                <option value="Debt">Debt</option>
-            </select>
-        </div>
-    </form>
-    <div slot="footer">
-        <button class="button">Save</button>
-    </div>
-</app-popup>

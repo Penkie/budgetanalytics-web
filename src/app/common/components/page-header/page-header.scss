@@ -1,7 +1,9 @@
 :host {
 
+    font-size: 20px;
+
     .title {
-        font-size: 24px;
+        // font-size: 24px;
         font-weight: bold;
         padding: 20px 0;
         display: flex;
@@ -17,8 +19,13 @@
 
         .base-route {
             color: var(--grey-text) !important;
-            font-size: 18px;
+            // font-size: 18px;
             font-weight: normal;
+        }
+
+        .router-link:hover {
+            cursor: pointer;
+            text-decoration: underline;
         }
     }
 }
