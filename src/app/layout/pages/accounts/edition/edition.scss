@@ -2,4 +2,79 @@
     margin: 0 20px;
     display: block;
 
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        // color: var( 0--text-color);
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-error {
+            color: red;
+            font-size: 12px;
+        }
+
+        .invalid-input {
+            border: 1px solid red;
+        }
+
+        label {
+            color: var(--text-gray);
+        }
+
+        input {
+            border: none;
+            min-width: 400px;
+            border: 1px solid var(--border-gray);
+            padding: 10px 12px;
+            border-radius: 8px;
+            background-color: var(--hover-color);
+        }
+
+        .input-balance, .currency {
+            position: relative;
+            display: block;
+            padding-left: 45px;
+        }
+
+        .currency::after {
+            content: attr(currency);
+            position: absolute;
+            top: 13px;
+            left: 10px;
+            display: block;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        select {
+            min-width: 400px;
+            border: 1px solid var(--border-gray);
+            background-color: var(--hover-color) !important;
+            border-radius: 8px;
+            background: #eeeeee;
+            padding: 10px 12px;
+
+            &, &::picker(select) {
+                appearance: base-select;
+                // customize here in the future !
+            }
+        }
+
+        .button {
+            color: var(--text-gray);
+        }
+    }
 }

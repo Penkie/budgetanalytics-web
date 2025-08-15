@@ -13,10 +13,10 @@
             align-items: center;
             gap: 5px;
             align-self: flex-start;
-            color: var(--grey-text);
+            color: var(--text-gray);
 
             img {
-                filter: var(--filter-grey);
+                filter: var(--filter-gray);
             }
         }
 
@@ -26,6 +26,10 @@
             // padding: 10px;
             border-spacing: 0;
             border-radius: 8px;
+
+            .th-icon {
+                width: 15px;
+            }
 
             tr th {
                 text-align: start;
@@ -37,7 +41,7 @@
             td img {
                 width: 25px;
                 height: 25px;
-                filter: var(--filter-grey)
+                filter: var(--filter-gray)
             }
 
             td:has(img) {

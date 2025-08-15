@@ -1,3 +1,59 @@
-<page-header [pagePath]="pagePath">
-
-</page-header>
+<page-header [pagePath]="pagePath"></page-header>
+<form (ngSubmit)="submitForm()" [formGroup]="editForm" class="form" action="">
+    <div class="form-container">
+        <label for="name">Name</label>
+        <input [class.invalid-input]="submitted() && !editForm.controls.name.valid" formControlName="name" placeholder="Enter name here" type="text" name="name" id="name">
+        @if (submitted() && editForm.controls.name.errors) {
+            @if (editForm.controls.name.errors['required']) {
+                <div class="form-error">
+                    This field is required
+                </div>
+            }
+            @if (editForm.controls.name.errors['maxlength']) {
+                <div class="form-error">
+                    Max length of name is {{ editForm.controls.name.errors['maxlength'].requiredLength }}
+                </div>
+            }
+        }
+    </div>
+    <div class="form-container">
+        <label for="balance">Balance</label>
+        <label for="" class="currency" currency="CHF"></label>
+        <input [class.invalid-input]="submitted() && !editForm.controls.amount.valid" formControlName="amount" placeholder="0" class="input-balance" type="number" name="balance" id="balance">
+        @if (submitted() && !editForm.controls.amount.valid) {
+            <div class="form-error">
+                This field is required
+            </div>
+        }
+    </div>
+    <div class="form-container">
+        <label for="type">Type</label>
+        <select [class.invalid-input]="submitted() && !editForm.controls.type.valid" formControlName="type" name="type" id="type">
+            <option value="">Please select a value</option>
+            <option value="Current">Current</option>
+            <option value="Saving">Saving</option>
+            <option value="Credit card">Credit card</option>
+            <option value="Debt">Debt</option>
+            <option value="Investment">Investment</option>
+        </select>
+        @if (submitted() && !editForm.controls.type.valid) {
+            <div class="form-error">
+                This field is required
+            </div>
+        }
+    </div>
+    <button class="button" type="submit">Save</button>
+    @if (formState().loading) {
+      <div class="loading">
+        <img src="icons/loading.svg" alt="loading">
+      </div>
+    }
+    
+    @if (formState().error) {
+      <div class="error">{{ formState().error }}</div>
+    }
+    
+    @if (formState().success) {
+      <div class="success">Account created succcessfully !</div>
+    }
+</form>

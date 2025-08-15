@@ -6,32 +6,42 @@
     </button>
     <table>
         <tr>
-            <th></th>
+            <th class="th-icon"></th>
             <th>Name</th>
             <th>Balance</th>
             <th>Type</th>
         </tr>
-        <tr>
-            <td>
-                <img src="icons/pig.svg" alt="">
-            </td>
-            <td>Current (BCV)</td>
-            <td>102 CHF</td>
-            <td>Current</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>Saving (BCV)</td>
-            <td>1000 CHF</td>
-            <td>Saving</td>
-        </tr>
-        <tr>
-            <td>
-                <img src="icons/card.svg" alt="">
-            </td>
-            <td>Credit card</td>
-            <td>-820 CHF</td>
-            <td>Credit card</td>
-        </tr>
+        @for (account of accounts(); track $index) {
+            <tr>
+                <td>
+                   @switch (account.type) {
+                    @case ('Current') {
+                        <img src="icons/building.svg" alt="building">
+                    }
+                    @case ('Saving') {
+                        <img src="icons/pig.svg" alt="pig">
+                    }
+                    @case ('Credit card') {
+                        <img src="icons/card.svg" alt="card">
+                    }
+                    @case ('Debt') {
+                        <img src="icons/chart.svg" alt="chart">
+                    }
+                    @case ('Investmnent') {
+                        <img src="icons/stack.svg" alt="stack">
+                    }
+                   } 
+                </td>
+                <td>
+                    {{ account.name }}
+                </td>
+                <td>
+                    {{ account.amount }} CHF
+                </td>
+                <td>
+                    {{ account.type }}
+                </td>
+            </tr>
+        }
     </table>
 </div>

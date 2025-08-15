@@ -16,7 +16,7 @@
 
         .number {
             padding: 20px;
-            border: 2px solid var(--border-grey);
+            border: 2px solid var(--border-gray);
             border-radius: 8px;
             display: flex;
             flex-direction: column;
@@ -28,12 +28,12 @@
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
-                color: var(--grey-text);
+                color: var(--text-gray);
 
                 img {
                     width: 15px;
                     height: 15px;
-                    filter: var(--filter-grey)
+                    filter: var(--filter-gray)
                 }
             }
 
@@ -61,7 +61,7 @@
                 justify-content: center;
 
                 img {
-                    filter: var(--filter-grey);
+                    filter: var(--filter-gray);
                     width: 25px;
                     height: 25px;
                 }
