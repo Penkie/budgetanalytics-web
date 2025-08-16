@@ -28,6 +28,11 @@
     -webkit-user-select: none;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
+
+    &:disabled, :hover {
+      cursor: default;
+      background-color: #eeeeeeb3 !important;
+    }
 }
 
 .button:hover {

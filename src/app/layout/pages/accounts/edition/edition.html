@@ -42,18 +42,10 @@
             </div>
         }
     </div>
-    <button class="button" type="submit">Save</button>
-    @if (formState().loading) {
+    <button [disabled]="formState().loading" class="button" type="submit">Save</button>
+    <!-- @if (formState().loading) {
       <div class="loading">
-        <img src="icons/loading.svg" alt="loading">
+        Saving changes...
       </div>
-    }
-    
-    @if (formState().error) {
-      <div class="error">{{ formState().error }}</div>
-    }
-    
-    @if (formState().success) {
-      <div class="success">Account created succcessfully !</div>
-    }
+    } -->
 </form>

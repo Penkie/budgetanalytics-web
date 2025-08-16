@@ -7,9 +7,9 @@
     <table>
         <tr>
             <th class="th-icon"></th>
+            <th>Type</th>
             <th>Name</th>
             <th>Balance</th>
-            <th>Type</th>
         </tr>
         @for (account of accounts(); track $index) {
             <tr>
@@ -27,10 +27,13 @@
                     @case ('Debt') {
                         <img src="icons/chart.svg" alt="chart">
                     }
-                    @case ('Investmnent') {
+                    @case ('Investment') {
                         <img src="icons/stack.svg" alt="stack">
                     }
                    } 
+                </td>
+                <td>
+                    {{ account.type }}
                 </td>
                 <td>
                     {{ account.name }}
@@ -38,9 +41,7 @@
                 <td>
                     {{ account.amount }} CHF
                 </td>
-                <td>
-                    {{ account.type }}
-                </td>
+                
             </tr>
         }
     </table>

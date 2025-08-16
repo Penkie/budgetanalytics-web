@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, Inject, inject, signal } from '@angular/core';
 import {
     PageHeader,
     PagePath,
@@ -14,14 +14,18 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import {
     catchError,
     concat,
+    delay,
     map,
     of,
     startWith,
     Subject,
     switchMap,
+    tap,
 } from 'rxjs';
 import { Account } from '../../../../common/models/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '../../../../common/services/notification.service';
+import { Router } from '@angular/router';
 
 interface FormState {
     loading: boolean;
@@ -39,6 +43,8 @@ interface FormState {
 export class AccountEdition {
     private readonly accountService = inject(AccountService);
     private readonly submitSubject = new Subject<Account>();
+    private readonly notificationService = inject(NotificationService);
+    private readonly router = inject(Router);
 
     public readonly pagePath: Array<PagePath> = [
         {
@@ -79,6 +85,12 @@ export class AccountEdition {
                         account: null,
                     }),
                     this.accountService.createAccount(account).pipe(
+                        tap(() => {
+                            this.notificationService.success(
+                                'Account created successfully'
+                            );
+                            this.router.navigate(['/cockpit/accounts']);
+                        }),
                         map(
                             (createdAccount): FormState => ({
                                 success: true,
@@ -87,14 +99,15 @@ export class AccountEdition {
                                 account: createdAccount,
                             })
                         ),
-                        catchError((error) =>
-                            of({
+                        catchError((error) => {
+                            this.displayErrorMessage(error);
+                            return of({
                                 loading: false,
                                 success: false,
-                                error: this.getErrorMessage(error),
+                                error: 'true',
                                 account: null,
-                            } as FormState)
-                        )
+                            } as FormState);
+                        })
                     )
                 )
             ),
@@ -131,13 +144,21 @@ export class AccountEdition {
         this.submitSubject.next(account);
     }
 
-    private getErrorMessage(error: HttpErrorResponse): string {
+    private displayErrorMessage(error: HttpErrorResponse): void {
         if (error.status === 400) {
-            return 'Invalid data.';
+            this.notificationService.error(
+                error.error?.message || 'Invalid data.'
+            );
         }
         if (error.status === 500) {
-            return 'Something went wrong with our servers. Please try again later or contact us.';
+            this.notificationService.error(
+                error.error?.message ||
+                    'Something went wrong with our servers. Please try again later or contact us.'
+            );
+        } else {
+            this.notificationService.error(
+                error.error?.message || 'Something went wrong.'
+            );
         }
-        return error.error?.message || 'Something went wrong.';
     }
 }
