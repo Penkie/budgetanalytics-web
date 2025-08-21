@@ -7,6 +7,7 @@
   --hover-color: #f6f3f3;
   --hover-on-main-color: #f0d8d4;
   --border-gray: rgba(0, 0, 0, 0.08);
+  --border-main: #5a2d2d2b;
   --filter-gray: brightness(0) saturate(100%) invert(50%);
   --filter-main-color: brightness(0) saturate(100%) invert(25%) sepia(25%) saturate(1500%) hue-rotate(0deg) brightness(90%) contrast(100%);
 }
@@ -28,18 +29,43 @@
     -webkit-user-select: none;
     -ms-touch-action: manipulation;
     touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+    img { 
+      width: 15px;
+      height: 15px;
+    }
 
-    &:disabled, :hover {
+    &:disabled &:hover {
       cursor: default;
       background-color: #eeeeeeb3 !important;
     }
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+
+    &:focus {
+      outline: 2px solid rgba(0, 0, 0, 0.1);
+      outline-offset: 2px;
+    }
 }
 
-.button:hover {
-  background-color: #f9fafb;
-}
+.primary-button {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-main) !important;
+    display: flex;
+    gap: 5px;
+    align-items: center;
 
-.button:focus {
-  outline: 2px solid rgba(0, 0, 0, 0.1);
-  outline-offset: 2px;
+    img {
+      filter: var(--filter-main-color);
+    }
+
+    &:hover {
+        background-color: var(--hover-on-main-color) !important;
+    }
 }

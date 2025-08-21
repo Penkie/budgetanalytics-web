@@ -45,7 +45,7 @@
     <div class="actions">
         <button (click)="submitForm()" [disabled]="formState().loading" class="button" type="submit">Save</button>
         @if (editMode()) {
-            <button (click)="submitForm(!isArchived)" class="red-button button">
+            <button (click)="submitForm(!isArchived)" class="button primary-button">
                 <img src="icons/archive.svg" alt="archive">
                 {{ isArchived ? 'Unarchive' : 'Archive' }}
             </button>

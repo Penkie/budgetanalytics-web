@@ -202,7 +202,6 @@ export class AccountEdition {
 
     public submitForm(archive = false): void {
         this.submitted.set(true);
-        debugger;
 
         if (this.editForm.status === 'INVALID') {
             return;
