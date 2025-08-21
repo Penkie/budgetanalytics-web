@@ -16,7 +16,7 @@ import {
     UserActivityService,
     withAutoRefreshToken,
 } from 'keycloak-angular';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 

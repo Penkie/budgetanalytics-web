@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Transaction } from '../models/transaction.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Pageable, PageableResponse } from '../models/pageable.model';
 import { format } from 'date-fns';
