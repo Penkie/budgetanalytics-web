@@ -1,4 +1,11 @@
-import { Component, computed, input } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    computed,
+    ElementRef,
+    input,
+    viewChild,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 export interface PagePath {
@@ -14,11 +21,18 @@ export interface PagePath {
     templateUrl: './page-header.html',
     styleUrl: './page-header.scss',
 })
-export class PageHeader {
+export class PageHeader implements AfterViewInit {
     public pageName = input<string>();
     public pageBaseName = input<string>();
     public pagePath = input<Array<PagePath>>();
     public readonly pagePathLength = computed(
         () => this.pagePath()?.length ?? 0
     );
+
+    private wrapperRef = viewChild.required<ElementRef>('wrapperRef');
+
+    public ngAfterViewInit(): void {
+        const el = this.wrapperRef().nativeElement;
+        el.scrollLeft = el.scrollWidth;
+    }
 }

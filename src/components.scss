@@ -8,9 +8,12 @@
   --hover-on-main-color: #f0d8d4;
   --border-gray: rgba(0, 0, 0, 0.08);
   --border-main: #5a2d2d2b;
+  --background-secondary: #00000003;
   --filter-gray: brightness(0) saturate(100%) invert(50%);
   --filter-main-color: brightness(0) saturate(100%) invert(25%) sepia(25%) saturate(1500%) hue-rotate(0deg) brightness(90%) contrast(100%);
 }
+
+// components
 
 .button {
     background-color: #ffffff;
@@ -68,4 +71,98 @@
     &:hover {
         background-color: var(--hover-on-main-color) !important;
     }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+
+  .error {
+      color: red;
+  }
+
+  .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .form-error {
+      color: red;
+      font-size: 12px;
+  }
+
+  .invalid-input {
+      border: 1px solid red;
+  }
+
+  label {
+      color: var(--text-gray);
+  }
+
+  input {
+      border: none;
+      min-width: 400px;
+      border: 1px solid var(--border-gray);
+      padding: 12px 14px;
+      border-radius: 8px;
+      background-color: var(--background-secondary);
+  }
+
+  .input-balance, .currency {
+      position: relative;
+      display: block;
+      padding-left: 45px;
+  }
+
+  .currency::after {
+      content: attr(currency);
+      position: absolute;
+      top: 16px;
+      left: 10px;
+      display: block;
+      font-size: 14px;
+      z-index: 1000;
+  }
+
+  select {
+      min-width: 400px;
+      border: 1px solid var(--border-gray);
+      background-color: var(--background-secondary) !important;
+      border-radius: 8px;
+      background: #eeeeee;
+      padding: 10px 12px;
+
+      &, &::picker(select) {
+          appearance: base-select;
+          // customize here in the future !
+      }
+  }
+
+  .button {
+      color: var(--text-gray);
+  }
+
+  .actions {
+      display: flex;
+      gap: 5px;
+  }
+
+  @media (max-width: 700px) {
+    .form-container {
+      width: 100%;
+    }
+
+    input {
+      min-width: unset;
+      width: 100%;
+    }
+
+    select {
+      min-width: unset;
+      width: 100%;
+    }
+  }
 }

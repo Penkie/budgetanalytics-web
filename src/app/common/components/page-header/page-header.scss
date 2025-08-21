@@ -2,6 +2,12 @@
 
     font-size: 20px;
 
+    .wrapper {
+        display: flex;
+        overflow-y: scroll;
+        direction: ltr;
+    }
+
     .title {
         // font-size: 24px;
         font-weight: bold;
@@ -10,6 +16,7 @@
         gap: 5px;
         color: var(--text-color);
         align-items: center;
+        white-space: nowrap;
 
         img {
             width: 18px;
