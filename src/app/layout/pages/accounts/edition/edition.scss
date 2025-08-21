@@ -80,5 +80,25 @@
         .button {
             color: var(--text-gray);
         }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+
+            .red-button {
+                background-color: var(--background-color);
+                color: var(--text-color);
+                // border: 2px solid var(--text-color);
+                display: flex;
+                gap: 5px;
+                align-items: center;
+
+                img {
+                    width: 15px;
+                    height: 15px;
+                    filter: var(--filter-main-color);
+                }
+            }
+        }
     }
 }

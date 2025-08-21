@@ -1,5 +1,5 @@
 <page-header [pagePath]="pagePath"></page-header>
-<form (ngSubmit)="submitForm()" [formGroup]="editForm" class="form" action="">
+<form [formGroup]="editForm" class="form" action="">
     <div class="form-container">
         <label for="name">Name</label>
         <input [class.invalid-input]="submitted() && !editForm.controls.name.valid" formControlName="name" placeholder="Enter name here" type="text" name="name" id="name">
@@ -42,10 +42,13 @@
             </div>
         }
     </div>
-    <button [disabled]="formState().loading" class="button" type="submit">Save</button>
-    <!-- @if (formState().loading) {
-      <div class="loading">
-        Saving changes...
-      </div>
-    } -->
+    <div class="actions">
+        <button (click)="submitForm()" [disabled]="formState().loading" class="button" type="submit">Save</button>
+        @if (editMode()) {
+            <button (click)="submitForm(!isArchived)" class="red-button button">
+                <img src="icons/archive.svg" alt="archive">
+                {{ isArchived ? 'Unarchive' : 'Archive' }}
+            </button>
+        }
+    </div>
 </form>

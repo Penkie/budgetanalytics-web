@@ -3,4 +3,5 @@ export interface Account {
     name: string;
     amount: number;
     type: string;
+    archived: boolean;
 }

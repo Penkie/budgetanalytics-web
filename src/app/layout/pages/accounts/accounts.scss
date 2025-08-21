@@ -20,6 +20,19 @@
             }
         }
 
+        .table-head {
+            display: flex;
+            justify-content: space-between;
+
+            .filter {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                color: var(--text-gray);
+                font-size: 12px;
+            }
+        }
+
         table {
             border: 2px solid var(--background-color);
             width: 100%;

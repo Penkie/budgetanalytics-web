@@ -1,4 +1,11 @@
-import { Component, Inject, inject, signal } from '@angular/core';
+import {
+    Component,
+    computed,
+    effect,
+    Inject,
+    inject,
+    signal,
+} from '@angular/core';
 import {
     PageHeader,
     PagePath,
@@ -15,7 +22,9 @@ import {
     catchError,
     concat,
     delay,
+    filter,
     map,
+    Observable,
     of,
     startWith,
     Subject,
@@ -25,7 +34,7 @@ import {
 import { Account } from '../../../../common/models/account.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../../../common/services/notification.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface FormState {
     loading: boolean;
@@ -45,6 +54,34 @@ export class AccountEdition {
     private readonly submitSubject = new Subject<Account>();
     private readonly notificationService = inject(NotificationService);
     private readonly router = inject(Router);
+    private readonly activatedRoute = inject(ActivatedRoute);
+
+    public isArchived = false;
+
+    public readonly accountId = toSignal(
+        this.activatedRoute.paramMap.pipe(map((params) => params.get('id'))),
+        { initialValue: null }
+    );
+
+    public readonly editMode = computed(() => !!this.accountId());
+
+    public loadAccount = toSignal(
+        this.activatedRoute.paramMap.pipe(
+            map((params) => params.get('id')),
+            filter((id): id is string => !!id),
+            switchMap((id) => {
+                return this.accountService.getAccountById(id).pipe(
+                    catchError((error) => {
+                        this.notificationService.error(
+                            'Error while loading selected account.'
+                        );
+                        return of(null);
+                    })
+                );
+            })
+        ),
+        { initialValue: null }
+    );
 
     public readonly pagePath: Array<PagePath> = [
         {
@@ -57,7 +94,7 @@ export class AccountEdition {
             routerLink: '/cockpit/accounts',
         },
         {
-            name: 'Create account',
+            name: this.accountId() ? 'Edit account' : 'Create account',
             route: false,
             main: true,
         },
@@ -84,31 +121,9 @@ export class AccountEdition {
                         error: null,
                         account: null,
                     }),
-                    this.accountService.createAccount(account).pipe(
-                        tap(() => {
-                            this.notificationService.success(
-                                'Account created successfully'
-                            );
-                            this.router.navigate(['/cockpit/accounts']);
-                        }),
-                        map(
-                            (createdAccount): FormState => ({
-                                success: true,
-                                loading: false,
-                                error: null,
-                                account: createdAccount,
-                            })
-                        ),
-                        catchError((error) => {
-                            this.displayErrorMessage(error);
-                            return of({
-                                loading: false,
-                                success: false,
-                                error: 'true',
-                                account: null,
-                            } as FormState);
-                        })
-                    )
+                    this.editMode()
+                        ? this.updateAccount(account)
+                        : this.createAccount(account)
                 )
             ),
             startWith({
@@ -128,8 +143,66 @@ export class AccountEdition {
         }
     );
 
-    public submitForm(): void {
+    public createAccount(accountData: Account): Observable<FormState> {
+        return this.accountService.createAccount(accountData).pipe(
+            tap(() => {
+                this.notificationService.success(
+                    'Account created successfully'
+                );
+                this.router.navigate(['/cockpit/accounts']);
+            }),
+            map(
+                (createdAccount): FormState => ({
+                    success: true,
+                    loading: false,
+                    error: null,
+                    account: createdAccount,
+                })
+            ),
+            catchError((error) => {
+                this.displayErrorMessage(error);
+                return of({
+                    loading: false,
+                    success: false,
+                    error: 'true',
+                    account: null,
+                } as FormState);
+            })
+        );
+    }
+
+    public updateAccount(accountData: Account): Observable<FormState> {
+        const id = this.accountId();
+        const updatedAccount = { ...accountData, id: id as string };
+
+        return this.accountService.updateAccount(updatedAccount).pipe(
+            tap(() => {
+                this.notificationService.success('Account saved successfully');
+                this.router.navigate(['/cockpit/accounts']);
+            }),
+            map(
+                (createdAccount): FormState => ({
+                    success: true,
+                    loading: false,
+                    error: null,
+                    account: createdAccount,
+                })
+            ),
+            catchError((error) => {
+                this.displayErrorMessage(error);
+                return of({
+                    loading: false,
+                    success: false,
+                    error: 'true',
+                    account: null,
+                } as FormState);
+            })
+        );
+    }
+
+    public submitForm(archive = false): void {
         this.submitted.set(true);
+        debugger;
 
         if (this.editForm.status === 'INVALID') {
             return;
@@ -139,9 +212,26 @@ export class AccountEdition {
             name: this.editForm.controls.name.value || '',
             amount: Number(this.editForm.controls.amount.value) || 0,
             type: this.editForm.controls.type.value || '',
+            archived: archive,
         };
 
         this.submitSubject.next(account);
+    }
+
+    constructor() {
+        effect(() => {
+            const account = this.loadAccount();
+            if (account && this.editMode()) {
+                if (account.archived) {
+                    this.isArchived = true;
+                }
+                this.editForm.patchValue({
+                    name: account.name,
+                    type: account.type,
+                    amount: account.amount.toString(),
+                });
+            }
+        });
     }
 
     private displayErrorMessage(error: HttpErrorResponse): void {

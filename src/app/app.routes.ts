@@ -31,6 +31,11 @@ export const routes: Routes = [
                 component: AccountEdition,
                 canActivate: [canActivateAuthRole],
             },
+            {
+                path: 'accounts/edition/:id',
+                component: AccountEdition,
+                canActivate: [canActivateAuthRole],
+            },
         ],
     },
 ];

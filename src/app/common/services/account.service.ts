@@ -18,4 +18,16 @@ export class AccountService {
     public createAccount(account: Account): Observable<Account> {
         return this.http.post<Account>(`${this.API_URL}/account`, account);
     }
+
+    public getAccountById(id: string): Observable<Account> {
+        return this.http.get<Account>(`${this.API_URL}/account/${id}`);
+    }
+
+    public updateAccount(account: Account): Observable<Account> {
+        return this.http.put<Account>(`${this.API_URL}/account`, account);
+    }
+
+    public deleteAccount(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.API_URL}/account/${id}`);
+    }
 }

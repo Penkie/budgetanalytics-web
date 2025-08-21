@@ -1,9 +1,15 @@
 <page-header pageBaseName="Configuration" pageName="Accounts"></page-header>
 <div class="accounts">
-    <button class="button" routerLink="/cockpit/accounts/edition">
-        <img width="15" height="15" src="icons/plus.svg" alt="plus">
-        Add account
-    </button>
+    <div class="table-head">
+        <button class="button" routerLink="/cockpit/accounts/edition">
+            <img width="15" height="15" src="icons/plus.svg" alt="plus">
+            Add account
+        </button>
+        <div (click)="displayArchived.set(!displayArchived())" class="filter">
+            <label for="archive">Show archived accounts</label>
+            <input [(ngModel)]="displayArchived" type="checkbox" />
+        </div>
+    </div>
     <table>
         <tr>
             <th class="th-icon"></th>
@@ -12,7 +18,7 @@
             <th>Balance</th>
         </tr>
         @for (account of accounts(); track $index) {
-            <tr>
+            <tr [routerLink]="'/cockpit/accounts/edition/' + account.id">
                 <td>
                    @switch (account.type) {
                     @case ('Current') {
