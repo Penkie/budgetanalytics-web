@@ -6,49 +6,60 @@
             Add account
         </button>
         <div (click)="displayArchived.set(!displayArchived())" class="filter">
-            <label for="archive">Show archived accounts</label>
+            <label for="archive">Show archived accounts ({{ accountsArchivedCount() }})</label>
             <input [(ngModel)]="displayArchived" type="checkbox" />
         </div>
     </div>
-    <table>
-        <tr>
-            <th class="th-icon"></th>
-            <th>Type</th>
-            <th>Name</th>
-            <th>Balance</th>
-        </tr>
-        @for (account of accounts(); track $index) {
-            <tr [routerLink]="'/cockpit/accounts/edition/' + account.id">
-                <td>
-                   @switch (account.type) {
-                    @case ('Current') {
-                        <img src="icons/building.svg" alt="building">
-                    }
-                    @case ('Saving') {
-                        <img src="icons/pig.svg" alt="pig">
-                    }
-                    @case ('Credit card') {
-                        <img src="icons/card.svg" alt="card">
-                    }
-                    @case ('Debt') {
-                        <img src="icons/chart.svg" alt="chart">
-                    }
-                    @case ('Investment') {
-                        <img src="icons/stack.svg" alt="stack">
-                    }
-                   } 
-                </td>
-                <td>
-                    {{ account.type }}
-                </td>
-                <td>
-                    {{ account.name }}
-                </td>
-                <td>
-                    {{ account.amount }} CHF
-                </td>
-                
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th class="th-icon"></th>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Balance</th>
+                @if (displayArchived()) {
+                    <th>Archived</th>
+                }
             </tr>
-        }
-    </table>
+            @for (account of accounts(); track $index) {
+                <tr [class.archived]="account.archived" [routerLink]="'/cockpit/accounts/edition/' + account.id">
+                    <td>
+                       @switch (account.type) {
+                        @case ('Current') {
+                            <img src="icons/building.svg" alt="building">
+                        }
+                        @case ('Saving') {
+                            <img src="icons/pig.svg" alt="pig">
+                        }
+                        @case ('Credit card') {
+                            <img src="icons/card.svg" alt="card">
+                        }
+                        @case ('Debt') {
+                            <img src="icons/chart.svg" alt="chart">
+                        }
+                        @case ('Investment') {
+                            <img src="icons/stack.svg" alt="stack">
+                        }
+                       } 
+                    </td>
+                    <td>
+                        {{ account.type }}
+                    </td>
+                    <td>
+                        {{ account.name }}
+                    </td>
+                    <td>
+                        {{ account.amount }} CHF
+                    </td>
+                    @if (displayArchived()) {
+                        <td>
+                            @if (account.archived) {
+                                Yes
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
 </div>

@@ -33,6 +33,11 @@
             }
         }
 
+        .table-wrapper {
+            display: flex;
+            overflow-y: auto;
+        }
+
         table {
             border: 2px solid var(--background-color);
             width: 100%;
@@ -70,6 +75,10 @@
             tr:has(td):hover {
                 background-color: var(--hover-color);
                 cursor: pointer;
+            }
+
+            .archived {
+                // background-color: rgba(213, 213, 213, 0.161);
             }
         }
     }

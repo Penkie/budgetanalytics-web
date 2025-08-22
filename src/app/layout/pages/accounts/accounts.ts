@@ -26,4 +26,8 @@ export class Accounts {
             showArchived ? account : account.archived != true
         );
     });
+
+    public readonly accountsArchivedCount = computed(() => {
+        return this.allAccounts().filter((a) => a.archived).length;
+    });
 }
