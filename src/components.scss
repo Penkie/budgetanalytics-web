@@ -214,6 +214,7 @@ table {
   .cell-loading {
       width: 100%;
       height: 20px;
+      border-radius: 8px;
       animation: skeleton-loading 1s linear infinite alternate;
   }
 }
