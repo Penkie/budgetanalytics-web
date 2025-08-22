@@ -134,6 +134,7 @@
       border-radius: 8px;
       background: #eeeeee;
       padding: 10px 12px;
+      -webkit-appearance: none;
 
       &, &::picker(select) {
           appearance: base-select;
@@ -165,4 +166,13 @@
       width: 100%;
     }
   }
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(0, 0%, 92%);
+    }
+    100% {
+        background-color: hsl(0, 0%, 94%);
+    }
 }

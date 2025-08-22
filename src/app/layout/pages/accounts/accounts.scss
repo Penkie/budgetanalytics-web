@@ -77,9 +77,16 @@
                 cursor: pointer;
             }
 
-            .archived {
-                // background-color: rgba(213, 213, 213, 0.161);
+            .cell-loading {
+                width: 100%;
+                height: 20px;
+                animation: skeleton-loading 1s linear infinite alternate;
             }
+        }
+
+        .no-account {
+            color: var(--text-gray);
+            text-align: center;
         }
     }
 }

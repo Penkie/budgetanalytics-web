@@ -22,7 +22,7 @@
                 }
             </tr>
             @for (account of accounts(); track $index) {
-                <tr [class.archived]="account.archived" [routerLink]="'/cockpit/accounts/edition/' + account.id">
+                <tr [routerLink]="'/cockpit/accounts/edition/' + account.id">
                     <td>
                        @switch (account.type) {
                         @case ('Current') {
@@ -60,6 +60,21 @@
                     }
                 </tr>
             }
+            @if (isLoading()) {
+                @for (item of skeletonCount; track item) {
+                    <tr>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                    </tr>
+                }
+            }
         </table>
     </div>
+    @if (!isLoading() && accounts().length <= 0) {
+        <div class="no-account">
+            No accounts found
+        </div>
+    }
 </div>
