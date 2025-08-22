@@ -1,0 +1,28 @@
+<page-header [pagePath]="pagePath"></page-header>
+<form [formGroup]="editForm" class="form" action="">
+    <div class="form-container">
+        <label for="name">Name</label>
+        <input [class.invalid-input]="submitted() && !editForm.controls.name.valid" formControlName="name" placeholder="Enter name here" type="text" name="name" id="name">
+        @if (submitted() && editForm.controls.name.errors) {
+            @if (editForm.controls.name.errors['required']) {
+                <div class="form-error">
+                    This field is required
+                </div>
+            }
+            @if (editForm.controls.name.errors['maxlength']) {
+                <div class="form-error">
+                    Max length of name is {{ editForm.controls.name.errors['maxlength'].requiredLength }}
+                </div>
+            }
+        }
+    </div>
+    <div class="actions">
+        <button (click)="submitForm()" [disabled]="formState().loading" class="button" type="submit">Save</button>
+        @if (editMode()) {
+            <button (click)="submitForm(!isArchived)" class="button primary-button">
+                <img src="icons/archive.svg" alt="archive">
+                {{ isArchived ? 'Unarchive' : 'Archive' }}
+            </button>
+        }
+    </div>
+</form>

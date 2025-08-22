@@ -1,0 +1,59 @@
+<page-header pageBaseName="Configuration" pageName="Categories"></page-header>
+<div class="categories">
+    <div class="table-head">
+        <button class="button" routerLink="/cockpit/categories/edition">
+            <img width="15" height="15" src="icons/plus.svg" alt="plus">
+            Add category
+        </button>
+        <div (click)="displayArchived.set(!displayArchived())" class="filter">
+            <label for="archive">Show archived categories ({{ categoriesArchivedCount() }})</label>
+            <input [(ngModel)]="displayArchived" type="checkbox" />
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th class="th-icon"></th>
+                <th>Name</th>
+                <th>Color</th>
+                @if (displayArchived()) {
+                    <th>Archived</th>
+                }
+            </tr>
+            @for (account of categories(); track $index) {
+                <tr [routerLink]="'/cockpit/accounts/edition/' + account.id">
+                    <td>
+                        <img src="icons/building.svg" alt="building">
+                    </td>
+                    <td>
+                        {{ account.name }}
+                    </td>
+                    <td>
+                        {{ account.color }}
+                    </td>
+                    @if (displayArchived()) {
+                        <td>
+                            @if (account.archived) {
+                                Yes
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+            @if (isLoading()) {
+                @for (item of skeletonCount; track item) {
+                    <tr>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    @if (!isLoading() && categories().length <= 0) {
+        <div class="no-account">
+            No categories found
+        </div>
+    }
+</div>
