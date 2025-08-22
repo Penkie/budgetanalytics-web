@@ -107,7 +107,7 @@ export class AccountEdition {
             Validators.required,
             Validators.maxLength(255),
         ]),
-        amount: new FormControl('', Validators.required),
+        balance: new FormControl('', Validators.required),
         type: new FormControl('', Validators.required),
     });
 
@@ -209,7 +209,7 @@ export class AccountEdition {
 
         const account = {
             name: this.editForm.controls.name.value || '',
-            amount: Number(this.editForm.controls.amount.value) || 0,
+            balance: Number(this.editForm.controls.balance.value) || 0,
             type: this.editForm.controls.type.value || '',
             archived: archive,
         };
@@ -227,7 +227,7 @@ export class AccountEdition {
                 this.editForm.patchValue({
                     name: account.name,
                     type: account.type,
-                    amount: account.amount.toString(),
+                    balance: account.balance.toString(),
                 });
             }
         });

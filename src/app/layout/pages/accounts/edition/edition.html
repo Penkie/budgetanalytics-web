@@ -19,8 +19,8 @@
     <div class="form-container">
         <label for="balance">Balance</label>
         <label for="" class="currency" currency="CHF"></label>
-        <input [class.invalid-input]="submitted() && !editForm.controls.amount.valid" formControlName="amount" placeholder="0" class="input-balance" type="number" name="balance" id="balance">
-        @if (submitted() && !editForm.controls.amount.valid) {
+        <input [class.invalid-input]="submitted() && !editForm.controls.balance.valid" formControlName="balance" placeholder="0" class="input-balance" type="number" name="balance" id="balance">
+        @if (submitted() && !editForm.controls.balance.valid) {
             <div class="form-error">
                 This field is required
             </div>
