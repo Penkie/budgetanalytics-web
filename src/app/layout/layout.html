@@ -103,8 +103,6 @@
     <router-outlet></router-outlet>
 </div>
     
-@if (isMobileSidebarOpen()) {
-    <div class="overlay" (click)="closeMobileSidebar()"></div>
-}
+<div class="overlay" [class.hidden]="!isMobileSidebarOpen()" (click)="closeMobileSidebar()"></div>
 
 <app-notification-container />
