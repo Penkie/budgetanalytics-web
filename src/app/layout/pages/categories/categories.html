@@ -20,20 +20,20 @@
                     <th>Archived</th>
                 }
             </tr>
-            @for (account of categories(); track $index) {
-                <tr [routerLink]="'/cockpit/accounts/edition/' + account.id">
+            @for (category of categories(); track $index) {
+                <tr [routerLink]="'/cockpit/categories/edition/' + category.id">
                     <td>
-                        <img src="icons/building.svg" alt="building">
+                        <img [src]="'category_icons/' + category.icon + '.svg'" alt="building">
                     </td>
                     <td>
-                        {{ account.name }}
+                        {{ category.name }}
                     </td>
                     <td>
-                        {{ account.color }}
+                        <div [ngStyle]="{ 'background-color': category.color }" class="color"></div>
                     </td>
                     @if (displayArchived()) {
                         <td>
-                            @if (account.archived) {
+                            @if (category.archived) {
                                 Yes
                             }
                         </td>

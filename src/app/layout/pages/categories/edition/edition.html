@@ -25,6 +25,13 @@
                 </div>
             }
         </div>
+        @if (submitted() && editForm.controls.icon.errors) {
+            @if (editForm.controls.icon.errors['required']) {
+                <div class="form-error">
+                    This field is required
+                </div>
+            }
+        }
     </div>
     <div class="form-container">
         <label for="">Color</label>
@@ -35,6 +42,13 @@
                 </div>
             }
         </div>
+        @if (submitted() && editForm.controls.color.errors) {
+            @if (editForm.controls.color.errors['required']) {
+                <div class="form-error">
+                    This field is required
+                </div>
+            }
+        }
     </div>
     <div class="actions">
         <button (click)="submitForm()" [disabled]="formState().loading" class="button" type="submit">Save</button>

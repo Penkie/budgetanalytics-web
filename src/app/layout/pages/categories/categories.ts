@@ -6,10 +6,11 @@ import { catchError, filter, map, of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from '../../../common/services/notification.service';
 import { CategoryService } from '../../../common/services/categorie.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-categories',
-    imports: [PageHeader, RouterModule, FormsModule],
+    imports: [PageHeader, RouterModule, FormsModule, CommonModule],
     templateUrl: './categories.html',
     styleUrl: './categories.scss',
 })

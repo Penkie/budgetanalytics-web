@@ -120,8 +120,14 @@ export class CategoryEdition {
             Validators.required,
             Validators.maxLength(255),
         ]),
-        icon: new FormControl('', [Validators.required]),
-        color: new FormControl('', [Validators.required]),
+        icon: new FormControl('', [
+            Validators.required,
+            Validators.minLength(1),
+        ]),
+        color: new FormControl('', [
+            Validators.required,
+            Validators.minLength(1),
+        ]),
     });
 
     public formState = toSignal(
@@ -242,7 +248,19 @@ export class CategoryEdition {
                     color: category.color,
                     icon: category.icon,
                 });
+                this.selectedColor.set(category.color);
+                this.selectedIcon.set(category.icon);
             }
+        });
+
+        effect(() => {
+            const selectedColor = this.selectedColor();
+            const selectedIcon = this.selectedIcon();
+
+            this.editForm.patchValue({
+                color: selectedColor,
+                icon: selectedIcon,
+            });
         });
     }
 
