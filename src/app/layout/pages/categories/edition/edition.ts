@@ -35,6 +35,8 @@ import { NotificationService } from '../../../../common/services/notification.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../../common/services/categorie.service';
 import { Category } from '../../../../common/models/categorie.model';
+import { IconsService } from '../../../../common/services/icons.service';
+import { CommonModule } from '@angular/common';
 
 interface FormState {
     loading: boolean;
@@ -45,7 +47,7 @@ interface FormState {
 
 @Component({
     selector: 'app-edition',
-    imports: [PageHeader, ReactiveFormsModule],
+    imports: [PageHeader, ReactiveFormsModule, CommonModule],
     templateUrl: './edition.html',
     styleUrl: './edition.scss',
 })
@@ -55,6 +57,7 @@ export class CategoryEdition {
     private readonly notificationService = inject(NotificationService);
     private readonly router = inject(Router);
     private readonly activatedRoute = inject(ActivatedRoute);
+    private readonly iconsService = inject(IconsService);
 
     public isArchived = false;
 
@@ -64,6 +67,16 @@ export class CategoryEdition {
     );
 
     public readonly editMode = computed(() => !!this.categoryId());
+
+    public iconList = toSignal(this.iconsService.getIconsList(), {
+        initialValue: [],
+    });
+    public colorList = toSignal(this.iconsService.getColorList(), {
+        initialValue: [],
+    });
+
+    public selectedIcon = signal('');
+    public selectedColor = signal('');
 
     public loadCategory = toSignal(
         this.activatedRoute.paramMap.pipe(

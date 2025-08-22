@@ -17,14 +17,14 @@
 
 .button {
     background-color: #ffffff;
-    border: 1px solid rgb(209, 213, 219);
+    border: 1px solid var(--border-gray);
     border-radius: 0.5rem;
     color: #111827;
     font-size: 0.875rem;
     font-weight: 600;
     padding: 0.75rem 1rem;
     text-align: center;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    // -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     cursor: pointer;
     -moz-user-select: none;
     -ms-user-select: none;

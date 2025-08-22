@@ -16,6 +16,26 @@
             }
         }
     </div>
+    <div class="form-container">
+        <label for="">Icon</label>
+        <div class="icons">
+            @for (icon of iconList(); track $index) {
+                <div (click)="selectedIcon.set(icon)" [class.selected]="selectedIcon() == icon" class="icon">
+                    <img [src]="'category_icons/' + icon + '.svg'" [alt]="icon">
+                </div>
+            }
+        </div>
+    </div>
+    <div class="form-container">
+        <label for="">Color</label>
+        <div class="colors">
+            @for (color of colorList(); track $index) {
+                <div (click)="selectedColor.set(color)" [class.selected]="selectedColor() == color" class="color">
+                    <div [ngStyle]="{ 'background-color': color }" class="item"></div>
+                </div>
+            }
+        </div>
+    </div>
     <div class="actions">
         <button (click)="submitForm()" [disabled]="formState().loading" class="button" type="submit">Save</button>
         @if (editMode()) {
