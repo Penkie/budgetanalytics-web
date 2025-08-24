@@ -7,6 +7,8 @@ import { Accounts } from './layout/pages/accounts/accounts';
 import { AccountEdition } from './layout/pages/accounts/edition/edition';
 import { Categories } from './layout/pages/categories/categories';
 import { CategoryEdition } from './layout/pages/categories/edition/edition';
+import { Mouvements } from './layout/pages/mouvements/mouvements';
+import { EditMouvement } from './layout/pages/mouvements/edit/edit';
 
 export const routes: Routes = [
     {
@@ -51,6 +53,21 @@ export const routes: Routes = [
             {
                 path: 'categories/edition/:id',
                 component: CategoryEdition,
+                canActivate: [canActivateAuthRole],
+            },
+            {
+                path: 'mouvements',
+                component: Mouvements,
+                canActivate: [canActivateAuthRole],
+            },
+            {
+                path: 'mouvements/edit',
+                component: EditMouvement,
+                canActivate: [canActivateAuthRole],
+            },
+            {
+                path: 'mouvements/edit/:id',
+                component: EditMouvement,
                 canActivate: [canActivateAuthRole],
             },
         ],

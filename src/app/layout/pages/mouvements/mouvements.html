@@ -1,0 +1,39 @@
+<div class="head">
+    <page-header pageName="Mouvements"></page-header>
+    <div class="create-btn-container">
+            <button class="button" routerLink="/cockpit/mouvements/edit">
+                <img width="15" height="15" src="icons/plus.svg" alt="plus">
+                Create
+            </button>
+        </div>
+    </div>
+<div class="mouvements">
+    <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Account</th>
+            </tr>
+            @for (transaction of transactions(); track transaction) {
+                <tr [routerLink]="'/cockpit/mouvements/edit/' + transaction.id">
+                    <td>{{ transaction.categoryId }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.accountId }}</td>
+                </tr>
+            }
+            @if (isLoading()) {
+                @for (item of skeletonCount; track item) {
+                    <tr>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                        <td><div class="cell-loading"></div></td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
