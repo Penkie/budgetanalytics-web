@@ -111,10 +111,21 @@
       background-color: var(--background-secondary);
   }
 
-  .input-balance, .currency {
-      position: relative;
+  .money-input-container {
+    position: relative;
+
+    .currency {
+        position: absolute;
+        bottom: 11.5px;
+        left: 10px;
+        color: var(--text-gray);
+        font-size: 14px;
+    }
+  }
+
+  .input-money {
       display: block;
-      padding-left: 45px;
+      text-indent: 30px;
   }
 
   .currency::after {

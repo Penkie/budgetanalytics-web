@@ -1,4 +1,67 @@
 <page-header [pagePath]="pagePath"></page-header>
-<form>
-    
+<form class="form">
+    <div class="form-container">
+        <div class="type-container">
+            <div (click)="selectedType.set('expense')" [class.selected]="selectedType() === 'expense'" class="type">Expense</div>
+            <div (click)="selectedType.set('transfert')" [class.selected]="selectedType() === 'transfert'" class="type">Transfert</div>
+            <div (click)="selectedType.set('income')" [class.selected]="selectedType() === 'income'" class="type">Income</div>
+        </div>
+    </div>
+    <div class="form-container">
+        <label for="amount">Amount</label>
+        <div class="money-input-container">
+            <span class="currency">CHF</span>
+            <input type="text" class="input-money" name="amount" id="amount">
+        </div>
+    </div>
+    <div class="form-container">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description">
+    </div>
+    <div class="form-container">
+        <label for="date">Date</label>
+        <input type="date" name="date" id="date">
+    </div>
+    <div class="form-container">
+        <label for="">Account</label>
+        <div class="items">
+            @for (item of accounts(); track item) {
+                <div (click)="selectedAccount.set(item.id!)" [class.selected]="selectedAccount() === item.id" class="item">
+                    @switch (item.type) {
+                        @case ('Current') {
+                            <img src="icons/building.svg" alt="building">
+                        }
+                        @case ('Saving') {
+                            <img src="icons/pig.svg" alt="pig">
+                        }
+                        @case ('Credit card') {
+                            <img src="icons/card.svg" alt="card">
+                        }
+                        @case ('Debt') {
+                            <img src="icons/chart.svg" alt="chart">
+                        }
+                        @case ('Investment') {
+                            <img src="icons/stack.svg" alt="stack">
+                        }
+                       } 
+                    <span class="item-name">{{ item.name }}</span>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="form-container">
+        <label for="">Category</label>
+        <div class="items">
+            @for (item of categories(); track item) {
+                <div (click)="selectedCategory.set(item.id!)" [class.selected]="selectedCategory() === item.id" class="item">
+                    <img [src]="'category_icons/' + item.icon + '.svg'" alt="building">
+                    <span class="item-name">{{ item.name }}</span>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="actions">
+        <button class="button" type="submit">Save</button>
+        <button class="button primary-button">Save & stay</button>
+    </div>
 </form>
