@@ -99,6 +99,8 @@
     </div>
     <div class="actions">
         <button (click)="submitForm()" class="button" type="submit">Save</button>
-        <button class="button primary-button">Save & stay</button>
+        @if (!editMode()) {
+            <button (click)="submitForm(true)" class="button primary-button">Save & stay</button>
+        }
     </div>
 </form>

@@ -134,13 +134,16 @@ export class EditMouvement {
         ).subscribe({
             next: (transaction) => {
                 if (transaction) {
+                    this.notificationService.success(
+                        'Mouvement saved successfully'
+                    );
                     if (stay) {
                         this.editForm.reset();
                         this.selectedType.set(this.selectedType());
+                        this.selectedAccount.set('');
+                        this.selectedCategory.set('');
+                        this.submitted.set(false);
                     } else {
-                        this.notificationService.success(
-                            'Mouvement saved successfully'
-                        );
                         this.router.navigate(['/cockpit/mouvements']);
                     }
                 }
