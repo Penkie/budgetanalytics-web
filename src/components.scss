@@ -182,6 +182,7 @@
 .table-wrapper {
     display: flex;
     overflow-y: auto;
+    overflow-x: auto;
 }
 
 table {
@@ -209,12 +210,14 @@ table {
 
   td:has(img) {
       display: flex;
-      justify-content: center;
+      align-items: center;
+      gap: 5px;
   }
 
   tr td {
       padding: 10px;
       margin: 0 !important;
+      text-wrap: nowrap;
   }
 
   tr:has(td):hover {

@@ -15,13 +15,41 @@
                 <th>Description</th>
                 <th>Amount</th>
                 <th>Account</th>
+                <th>Date</th>
             </tr>
             @for (transaction of transactionsWithDetails(); track transaction) {
                 <tr [routerLink]="'/cockpit/mouvements/edit/' + transaction.id">
-                    <td>{{ transaction.category?.name }}</td>
+                    <td>
+                        <img [src]="'category_icons/' + transaction.category?.icon + '.svg'" [alt]="transaction.category?.icon">
+                        {{ transaction.category?.name }}
+                    </td>
                     <td>{{ transaction.description }}</td>
-                    <td>{{ transaction.amount }}</td>
-                    <td>{{ transaction.account?.name }}</td>
+                    <td>
+                        {{ transaction.amount }} CHF
+                    </td>
+                    <td>
+                        @switch (transaction.account?.type) {
+                            @case ('Current') {
+                                <img src="icons/building.svg" alt="building">
+                            }
+                            @case ('Saving') {
+                                <img src="icons/pig.svg" alt="pig">
+                            }
+                            @case ('Credit card') {
+                                <img src="icons/card.svg" alt="card">
+                            }
+                            @case ('Debt') {
+                                <img src="icons/chart.svg" alt="chart">
+                            }
+                            @case ('Investment') {
+                                <img src="icons/stack.svg" alt="stack">
+                            }
+                       }
+                       <span>
+                        {{ transaction.account?.name }}
+                       </span>
+                    </td>
+                    <td>{{ transaction.date | date }}</td>
                 </tr>
             }
             @if (isLoading()) {
@@ -36,4 +64,6 @@
             }
         </table>
     </div>
+
+
 </div>

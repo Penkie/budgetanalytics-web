@@ -7,10 +7,11 @@ import { endOfMonth, startOfMonth } from 'date-fns';
 import { map, switchMap } from 'rxjs';
 import { AccountService } from '../../../common/services/account.service';
 import { CategoryService } from '../../../common/services/categorie.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-mouvements',
-    imports: [PageHeader, RouterModule],
+    imports: [PageHeader, RouterModule, CommonModule],
     templateUrl: './mouvements.html',
     styleUrl: './mouvements.scss',
 })
@@ -43,7 +44,16 @@ export class Mouvements {
                         params.page,
                         params.size
                     )
-                    .pipe(map((res) => res.content));
+                    .pipe(
+                        map((res) => res.content),
+                        map((content) =>
+                            content.sort(
+                                (a, b) =>
+                                    new Date(b.date).getTime() -
+                                    new Date(a.date).getTime()
+                            )
+                        )
+                    );
             })
         ),
         { initialValue: null, requireSync: false }
