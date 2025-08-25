@@ -20,7 +20,7 @@
         <label for="balance">Balance</label>
         <div class="money-input-container">
             <span class="currency">CHF</span>
-            <input [class.invalid-input]="submitted() && !editForm.controls.balance.valid" formControlName="balance" placeholder="0" class="input-money" type="number" name="balance" id="balance">
+            <input inputmode="decimal" [class.invalid-input]="submitted() && !editForm.controls.balance.valid" formControlName="balance" placeholder="0" class="input-money" type="number" name="balance" id="balance">
         </div>
         @if (submitted() && !editForm.controls.balance.valid) {
             <div class="form-error">
