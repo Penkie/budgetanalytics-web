@@ -16,12 +16,12 @@
                 <th>Amount</th>
                 <th>Account</th>
             </tr>
-            @for (transaction of transactions(); track transaction) {
+            @for (transaction of transactionsWithDetails(); track transaction) {
                 <tr [routerLink]="'/cockpit/mouvements/edit/' + transaction.id">
-                    <td>{{ transaction.categoryId }}</td>
+                    <td>{{ transaction.category?.name }}</td>
                     <td>{{ transaction.description }}</td>
                     <td>{{ transaction.amount }}</td>
-                    <td>{{ transaction.accountId }}</td>
+                    <td>{{ transaction.account?.name }}</td>
                 </tr>
             }
             @if (isLoading()) {

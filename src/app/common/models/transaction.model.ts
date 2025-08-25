@@ -1,3 +1,6 @@
+import { Account } from './account.model';
+import { Category } from './categorie.model';
+
 export interface Transaction {
     id?: string;
     description: string;
@@ -5,4 +8,7 @@ export interface Transaction {
     date: string;
     categoryId: string;
     accountId: string;
+
+    category?: Category;
+    account?: Account;
 }
