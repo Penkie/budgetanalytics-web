@@ -48,4 +48,8 @@ export class TransactionService {
             transaction
         );
     }
+
+    public getTransactionById(id: string): Observable<Transaction> {
+        return this.http.get<Transaction>(`${this.API_URL}/transaction/${id}`);
+    }
 }

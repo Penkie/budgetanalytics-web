@@ -5,7 +5,7 @@ import {
 } from '../../../../common/components/page-header/page-header';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, from, map, Observable, of } from 'rxjs';
+import { catchError, filter, from, map, Observable, of, switchMap } from 'rxjs';
 import { AccountService } from '../../../../common/services/account.service';
 import { CategoryService } from '../../../../common/services/categorie.service';
 import {
@@ -17,6 +17,7 @@ import {
 import { Transaction } from '../../../../common/models/transaction.model';
 import { TransactionService } from '../../../../common/services/transaction.service';
 import { NotificationService } from '../../../../common/services/notification.service';
+import { format, formatDate } from 'date-fns';
 
 @Component({
     selector: 'app-edit',
@@ -33,6 +34,23 @@ export class EditMouvement {
     private readonly router = inject(Router);
     private readonly transactionId = toSignal(
         this.activatedRoute.paramMap.pipe(map((param) => param.get('id'))),
+        { initialValue: null }
+    );
+    private readonly transaction = toSignal(
+        this.activatedRoute.paramMap.pipe(
+            map((params) => params.get('id')),
+            filter((id): id is string => !!id),
+            switchMap((id) => {
+                return this.transactionService.getTransactionById(id).pipe(
+                    catchError(() => {
+                        this.notificationService.error(
+                            'Something went wrong loading your mouvement.'
+                        );
+                        return of(null);
+                    })
+                );
+            })
+        ),
         { initialValue: null }
     );
 
@@ -73,7 +91,10 @@ export class EditMouvement {
             Validators.required,
             Validators.maxLength(1000),
         ]),
-        date: new FormControl(null, Validators.required),
+        date: new FormControl(
+            formatDate(new Date(), 'yyyy-MM-dd'),
+            Validators.required
+        ),
         accountId: new FormControl('', Validators.required),
         categoryId: new FormControl('', Validators.required),
     });
@@ -94,14 +115,14 @@ export class EditMouvement {
         const transaction = {
             description: this.editForm.controls.description.value || '',
             amount: amount || 0,
-            date: this.editForm.controls.date.value || new Date(),
+            date: this.editForm.controls.date.value || '',
             categoryId: this.editForm.controls.categoryId.value || '',
             accountId: this.editForm.controls.accountId.value || '',
         };
 
         // condition if editMode is on
         const obs = this.editMode()
-            ? this.transactionService.updateTransaction(transaction)
+            ? this.updateTransaction(transaction)
             : this.transactionService.createTransaction(transaction);
 
         obs.pipe(
@@ -111,18 +132,28 @@ export class EditMouvement {
                 return of(null);
             })
         ).subscribe({
-            next: () => {
-                if (stay) {
-                    this.editForm.reset();
-                    this.selectedType.set(this.selectedType());
-                } else {
-                    this.notificationService.success(
-                        'Mouvement saved successfully'
-                    );
-                    this.router.navigate(['/cockpit/mouvements']);
+            next: (transaction) => {
+                if (transaction) {
+                    if (stay) {
+                        this.editForm.reset();
+                        this.selectedType.set(this.selectedType());
+                    } else {
+                        this.notificationService.success(
+                            'Mouvement saved successfully'
+                        );
+                        this.router.navigate(['/cockpit/mouvements']);
+                    }
                 }
             },
         });
+    }
+
+    public updateTransaction(
+        transaction: Transaction
+    ): Observable<Transaction> {
+        const id = this.transactionId();
+        const updatedTranscation = { ...transaction, id: id as string };
+        return this.transactionService.updateTransaction(updatedTranscation);
     }
 
     public createTransaction(
@@ -134,8 +165,24 @@ export class EditMouvement {
     constructor() {
         effect(() => {
             const editMode = this.editMode();
+            const transaction = this.transaction();
 
-            if (editMode) {
+            if (editMode && transaction) {
+                if (transaction.amount < 0) {
+                    transaction.amount *= -1;
+                    this.selectedType.set('expense');
+                } else {
+                    this.selectedType.set('income');
+                }
+
+                this.selectedAccount.set(transaction.accountId);
+                this.selectedCategory.set(transaction.categoryId);
+
+                this.editForm.patchValue({
+                    description: transaction.description,
+                    amount: transaction.amount,
+                    date: format(transaction.date, 'yyyy-MM-dd'),
+                });
             }
         });
 
