@@ -30,4 +30,22 @@ export class TransactionService {
             )}&page=${page}&size=${size}`
         );
     }
+
+    public createTransaction(
+        transaction: Transaction
+    ): Observable<Transaction> {
+        return this.http.post<Transaction>(
+            `${this.API_URL}/transaction`,
+            transaction
+        );
+    }
+
+    public updateTransaction(
+        transaction: Transaction
+    ): Observable<Transaction> {
+        return this.http.put<Transaction>(
+            `${this.API_URL}/transaction`,
+            transaction
+        );
+    }
 }
